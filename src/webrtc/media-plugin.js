@@ -232,15 +232,9 @@ MediaPlugin.prototype.closePeerConnection = function() {
 };
 
 MediaPlugin.prototype._stopLocalMedia = function() {
-  var streams = this._pc.getLocalStreams();
+  var streams = this._pc.getReceivers();
   streams.forEach(function(stream) {
-    if (stream.stop) {
-      stream.stop();
-    } else if (stream.getTracks) {
-      stream.getTracks().forEach(function(track) {
-        track.stop();
-      });
-    }
+    stream?.track.stop();
   });
 };
 
